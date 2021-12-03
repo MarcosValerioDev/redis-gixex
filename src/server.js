@@ -58,7 +58,7 @@ setInterval(async ()=>{
     })
 
 
-server.listen(3000, async () => {
+server.listen(process.env.PORT || 4000, async () => {
 await client.connect();
     console.log('Servidor connectado a porta 3000');
 })
