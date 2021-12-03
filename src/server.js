@@ -23,7 +23,7 @@ function saveUserConnection(socket_id, user, room){
 }
 
 setInterval(async ()=>{
-    const values = await client.get('queueFunc');
+   // const values = await client.get('queueFunc');
     // if (values) {
     // const func = JSON.parse(values);
     // await client.FLUSHALL();
@@ -45,11 +45,11 @@ setInterval(async ()=>{
 
         socket.on('message', async (data) => {
             //cria cash radis
-            const values = await client.get('queueFunc');
+            //const values = await client.get('queueFunc');
             if (values) {
                 const func = JSON.parse(values);
                 const data = func.map((item) => {if (item.idFunction != data.idFunction && item.user != data.item)  return item});
-                if (!data) await client.set("queueFunc", JSON.stringify(data));
+                //if (!data) await client.set("queueFunc", JSON.stringify(data));
             }  
         })
 
@@ -59,6 +59,6 @@ setInterval(async ()=>{
 
 
 server.listen(process.env.PORT || 4000, async () => {
-await client.connect();
+    //await client.connect();
     console.log('Servidor connectado a porta 3000');
 })
