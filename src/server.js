@@ -29,7 +29,7 @@ setInterval(async ()=>{
     const values = await client.get('queueFunc');
     if (values) {
     const func = JSON.parse(values);
-    //apaga as filas
+
     await client.FLUSHALL();
     io.emit('action', func);
     }else{
@@ -59,25 +59,6 @@ setInterval(async ()=>{
 
 
 
-        //  setTimeout(()=>{
-        //      console.log("Valor de M:"+m)
-        //     if (m!={})  io.to(m.room).emit('action', m);
-        //  })  
-
-        //     if (callFunction!=[]){
-        //     execCallFunction();
-        //     emitList = getMessagesRoom1();
-        //     io.to(data.room).emit('action', emitList);
-        //     console.log("SALA1: "+listReturn);
-        //     emitList = getMessagesRoom2() 
-        //     io.to(data.room).emit('action', emitList);
-        //     console.log("SALA2: "+listReturn);
-        //     emitList = getMessagesRoom3() 
-        //     io.to(data.room).emit('action', emitList);
-        //     console.log("SALA3: "+listReturn);
-        //     clearCallFunction();
-        // }
-        // },1000)
     })
 
 function getMessagesRoom1() {
