@@ -13,7 +13,6 @@ const client = redis.createClient( {
   });
 
 
-
 function saveUserConnection(socket_id, user, room){
     dataUser={
         socket_id,
@@ -23,18 +22,15 @@ function saveUserConnection(socket_id, user, room){
     users.push(dataUser);
 }
 
-
-
 setInterval(async ()=>{
     const values = await client.get('queueFunc');
-    if (values) {
-    const func = JSON.parse(values);
-
-    await client.FLUSHALL();
-    io.emit('action', func);
-    }else{
+    // if (values) {
+    // const func = JSON.parse(values);
+    // await client.FLUSHALL();
+    // io.emit('action', func);
+  //  }else{
         io.emit('action', "none");
-    }
+    //}
 },1000)
 
     io.on('connect', socket => {
@@ -61,20 +57,6 @@ setInterval(async ()=>{
 
     })
 
-function getMessagesRoom1() {
-    const messagesRoom = listReturn.filter(message => message.room ===  sala1);
-    return messagesRoom;
-}
-
-function getMessagesRoom2() {
-    const messagesRoom = listReturn.filter(message => message.room ===  sala2);
-    return messagesRoom;
-}
-
-function getMessagesRoom3() {
-    const messagesRoom = listReturn.filter(message => message.room ===  sala3);
-    return messagesRoom;
-}
 
 server.listen(3000, async () => {
 await client.connect();
