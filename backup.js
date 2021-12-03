@@ -7,7 +7,10 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 const users = [];
 const fakeData = {"user":"teste", "room":"teste","teste":"teste", "parametro":"teste", "idFunction":"0"}
-
+const redis = require('redis');
+const client = redis.createClient( { 
+    url : process.env.REDIS_URL 
+  });
 
 
 function saveUserConnection(socket_id, user, room){
@@ -20,9 +23,14 @@ function saveUserConnection(socket_id, user, room){
 }
 
 setInterval(async ()=>{
-
-        io.emit('action', fakeData);
-
+   // const values = await client.get('queueFunc');
+    // if (values) {
+    // const func = JSON.parse(values);
+    // await client.FLUSHALL();
+    // io.emit('action', func);
+  //  }else{
+        io.emit('action', "none");
+    //}
 },1000)
 
     io.on('connect', socket => {
@@ -36,7 +44,8 @@ setInterval(async ()=>{
          
 
         socket.on('message', async (data) => {
-          
+            //cria cash radis
+            //const values = await client.get('queueFunc');
             if (values) {
                 const func = JSON.parse(values);
                 const data = func.map((item) => {if (item.idFunction != data.idFunction && item.user != data.item)  return item});
